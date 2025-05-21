@@ -1,11 +1,17 @@
--- Ensure game and player are loaded before executing
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players.LocalPlayer
 
--- Load Rayfield UI
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+local success, Rayfield = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Rayfield/main/source.lua"))()
+end)
 
--- Main Window
+if not success then
+    warn("Failed to load Rayfield:", Rayfield)
+    return
+end
+
+print("Rayfield loaded")
+
 local Window = Rayfield:CreateWindow({
     Name = "💔 Dead Rails",
     LoadingTitle = "Soghub | Dead Rails 💔",
@@ -15,17 +21,13 @@ local Window = Rayfield:CreateWindow({
         FolderName = "DeadRailsConfig",
         FileName = "DeadRails"
     },
-    Discord = {
-        Enabled = false
-    },
+    Discord = { Enabled = false },
     KeySystem = false,
 })
 
--- Main Tab
 local MainTab = Window:CreateTab("Main", 4483362458)
 MainTab:CreateSection("Utilities")
 
--- Aim Assist
 local AimAssistTab = Window:CreateTab("Aim Assist", 4483362458)
 AimAssistTab:CreateSection("Aimbot Options")
 AimAssistTab:CreateButton({
@@ -35,7 +37,6 @@ AimAssistTab:CreateButton({
     end,
 })
 
--- Teleport Tab
 local TeleportTab = Window:CreateTab("Teleports", 4483362458)
 TeleportTab:CreateSection("Teleport Options")
 
@@ -66,7 +67,6 @@ createTeleportButton("Teleport to Fort", "https://raw.githubusercontent.com/ring
 createTeleportButton("Teleport to Castle", "https://raw.githubusercontent.com/ringtaa/castletpfast.github.io/refs/heads/main/FASTCASTLE.lua")
 createTeleportButton("Teleport to The End", "https://raw.githubusercontent.com/hbjrev/tpend.github.io/refs/heads/main/ringta.lua")
 
--- Visual Tab
 local VisualTab = Window:CreateTab("Visual", 4483362458)
 VisualTab:CreateSection("Enhancements")
 
@@ -77,9 +77,8 @@ VisualTab:CreateButton({
     end,
 })
 
--- Footer Credits
 Rayfield:Notify({
     Title = "Loaded",
-    Content = "Made by alchemist (HUGE credits to Ringta for using some of his scripts and AkunDisco for using his scripts too :3)",
+    Content = "Made by alchemist (credits to Ringta and AkunDisco)",
     Duration = 6
 })
