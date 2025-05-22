@@ -169,7 +169,7 @@ local tps = {
 }
 for _, v in ipairs(tps) do
     AddButton(tabs["Teleports"], v[1], function()
-        loadstring(game:HttpGet(v[2]))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/alchemist185/Auto-bond/refs/heads/main/Auto%20bond%20main"))()
     end)
 end
 
